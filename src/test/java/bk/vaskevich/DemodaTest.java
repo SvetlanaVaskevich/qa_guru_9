@@ -1,17 +1,36 @@
 package bk.vaskevich;
 
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 public class DemodaTest {
 
+    @BeforeEach
+    public void init(){
+        SelenideLogger.addListener("AllureSelenide",new AllureSelenide());
+        Configuration.baseUrl = "https://demoqa.com";
+        Configuration.browserSize = "1920x1080";
+        //enableVNC: true
+        //enableVideo: false
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("enableVNC","true");
+        capabilities.setCapability("enableVideo","false");
+        Configuration.browserCapabilities = capabilities;
+        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
+    }
+
     @Test
-    void test() {
-        open("https://demoqa.com/automation-practice-form");
+    public void FillFormTest() {
+        open("/automation-practice-form");
         $("#firstName").setValue("Svetlana");
         $("#lastName").setValue("Ivanova");
         $("#userEmail").setValue("mymail@bk.ru");
@@ -34,5 +53,10 @@ public class DemodaTest {
         $(".table-responsive").shouldHave(text("Svetlana Ivanova"),text("mymail@bk.ru"),
                 text("Female"),text("23 December,1987"),text("English"),text("Sports"),text("sport1.png"),
                 text("Russia,Ekaterinburg"),text("NCR Noida"));
+    }
+
+    @AfterEach
+    public void close(){
+        closeWebDriver();
     }
 }
