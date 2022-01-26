@@ -17,11 +17,17 @@ public class DemodaTest extends TestBase{
             open("/automation-practice-form");
             $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
         });
-        step("Заполняем страницу данными", () -> {
+        step("Заполняем имя и фамилию", () -> {
             $("#firstName").setValue("Svetlana");
             $("#lastName").setValue("Ivanova");
+        });
+        step("Заполняем почту", () -> {
             $("#userEmail").setValue("mymail@bk.ru");
+        });
+        step("Заполняем пол", () -> {
             $(byText("Female")).click();
+        });
+        step("Заполняем номер", () -> {
             $("#userNumber").setValue("8999456123");
         });
         step("Заполняем дату рождения", () -> {
