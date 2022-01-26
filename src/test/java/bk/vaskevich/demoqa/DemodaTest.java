@@ -31,7 +31,7 @@ public class DemodaTest extends TestBase{
             $(".react-datepicker__year-select").selectOption("1987");
             $(".react-datepicker__day.react-datepicker__day--023").click();
         });
-        step("Заолняем данные о хобби", () -> {
+        step("Заполняем данные о хобби", () -> {
             $("#subjectsInput").setValue("English").pressEnter();
             $(byText("Sports")).click();
         });

@@ -27,11 +27,12 @@ public class TestBase {
     }
 
     @AfterEach
-    public void addAttachment() {
+    public void addAttachments() {
         Attach.screenshotAs("Screnchot demoqa");
         Attach.pageSource();
         Attach.browserConsoleLogs();
         Attach.addVideo();
+
         closeWebDriver();
     }
 }
